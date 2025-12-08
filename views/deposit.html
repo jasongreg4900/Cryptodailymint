@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoDailyMint – Deposit</title>
+
+  <style>
+    :root {
+      --primary: #0fcb80;
+      --secondary: #0aa86a;
+      --dark: #0d0d0d;
+      --light: #f2f2f2;
+      --bg: #0a0f14;
+      --card: #111a22;
+      --gradient: linear-gradient(135deg, #0fcb80, #0aa86a);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--light);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card);
+      padding: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 40px rgba(15,203,128,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 30px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+
+
+    .deposit-card {
+      background: #0f1520;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 40px;
+    }
+
+    .deposit-card p {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    #walletAddress {
+      background: #111a22;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      word-wrap: break-word;
+    }
+
+    #qrCode {
+      display: block;
+      margin: 25px auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px;
+      background: #111a22;
+      width: 210px;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      padding: 14px;
+      width: 100%;
+      text-align: center;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+    }
+
+
+    h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+
+    form {
+      background: #0f1520;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    input[type="number"], input[type="file"] {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #111a22;
+      color: white;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      background: var(--gradient);
+      padding: 14px;
+      border-radius: 10px;
+      color: #fff;
+      border: none;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    button[type="submit"]:hover {
+      opacity: 0.85;
+    }
+
+
+    .info-box {
+      margin-top: 35px;
+      background: #111a22;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .info-box strong {
+      color: var(--primary);
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #000;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Deposit USDT</h1>
+
+    <div class="deposit-card">
+      <p><strong>Username:</strong> <span id="username-id"></span></p>
+      <p><strong>Wallet Address (TRC20):</strong></p>
+      <p id="walletAddress"></p>
+
+      <img id="qrCode" width="200">
+
+      <button class="btn-primary" id="copyBtn">Copy Wallet Address</button>
+    </div>
+
+    <h3>Upload Payment Proof</h3>
+
+    <form id="depositForm">
+      <input type="number" id="amount" placeholder="Enter deposit amount (USDT)" required />
+      <input type="file" id="proof" accept="image/*" required />
+      <button type="submit">Upload Payment Proof</button>
+    </form>
+
+
+    <div class="info-box">
+      <strong>Important:</strong><br>
+      • Only deposit USDT (TRC20).<br>
+      • Minimum deposit: 50 USDT.<br>
+      • Payment proof must be clear and readable.<br>
+      • Deposits are credited within 3–10 minutes.<br>
+    </div>
+    <footer>
+    © 2025 CryptoDailyMint. All rights reserved.
+  </footer>
+  </div>
+<script src="/script.js"></script>
+</body>
+</html>

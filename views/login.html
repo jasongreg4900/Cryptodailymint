@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoDailyMint – Login</title>
+  <style>
+    :root {
+      --primary: #0fcb80;
+      --secondary: #0aa86a;
+      --dark: #0a0f14;
+      --light: #f2f2f2;
+      --card: #111a22;
+      --gradient: linear-gradient(135deg, #0fcb80, #0aa86a);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: var(--card);
+      padding: 40px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 0 40px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      background: #0d1a22;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient);
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    .link {
+      display: block;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: var(--light);
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    .link:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+    .error-message {
+      color: #ff4f4f;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Login</h1>
+    <form action="/login" method="POST" id="login-form">
+      <input type="text" id="login-username" name="username" placeholder="Username" required />
+      <input type="password" id="login-password" name="password" placeholder="Password" required />
+
+      <div class="error-message" id="checkbox-error"></div>
+      
+      <button type="submit">Login</button>
+    </form>
+    <a href="/recover" class="link" target="_blank" style="color:#0fcb80;">Forgot your password?</a>
+    <a href="/signup" class="link">Don't have an account? Sign Up</a>
+  </div>
+<script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoDailyMint – Sign Up</title>
+  <style>
+    :root {
+      --primary: #0fcb80;
+      --secondary: #0aa86a;
+      --dark: #0a0f14;
+      --light: #f2f2f2;
+      --card: #111a22;
+      --gradient: linear-gradient(135deg, #0fcb80, #0aa86a);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: var(--card);
+      padding: 40px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 0 40px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      background: #0d1a22;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient);
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    .link {
+      display: block;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: var(--light);
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    .link:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+    .links {
+      text-decoration: none;
+      color: var(--light);
+      opacity: 0.8;
+    }
+    .links:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+    .error-message {
+      color: #ff4f4f;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Sign Up</h1>
+    <form action="/signup" method="POST" id="signup-form">
+      <input type="text" id="signup-username" name="username" placeholder="Username" required />
+      <input type="text" id="address" name="address" placeholder="Enter Your USDT (TRC20) Wallet Address" required />
+      <input type="password" id="signup-password" name="password" placeholder="Password" required />
+      <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required />
+      <input type="text" id="referredBy" name="referredBy" placeholder="Referral Code (Optional)" />
+
+      <p><input type="checkbox" id="terms-check" name="acceptedTerms" style="margin-right:10px;">
+      I agree to the <a href="/terms" class="links" target="_blank" style="color:#0fcb80;">Terms & Conditions</a> and 
+      <a href="/privacy" class="links" target="_blank" style="color:#0fcb80;">Privacy Policy</a>.</p>
+
+      <div class="error-message" id="checkbox-error"></div>
+      <p id="checkbox-error" style="color:#0fcb80; font-weight:600; margin-top:10px;"></p>
+      <button type="submit">Create Account</button>
+    </form>
+    <a href="/login" class="link">Already have an account? Login</a>
+    <div id="recoveryCodesPage" style="display:none; margin-top:20px; text-align:left;">
+  <h3>Save these recovery codes (store them safely)</h3>
+  <p>These codes can recover your account if you lose access. Each code can be used once.</p>
+  <ul id="recoveryList" style="background:#0d1a22; padding:10px; border-radius:8px; list-style: none;"></ul>
+  <button id="continueToLogin" style="margin-top:12px; padding:10px; width:100%;">I saved them — go to Login</button>
+</div>
+  </div>
+<script src="/script.js"></script>
+</body>
+</html>

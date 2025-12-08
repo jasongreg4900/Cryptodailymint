@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoDailyMint - Earn USDT Daily</title>
+  <style>
+
+    :root {
+      --primary: #0fcb80;
+      --secondary: #0aa86a;
+      --dark: #0d0d0d;
+      --light: #f2f2f2;
+      --bg: #0a0f14;
+      --card: #111a22;
+      --gradient: linear-gradient(135deg, #0fcb80, #0aa86a);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--light);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      padding: 14px 26px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: inline-block;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.8;
+    }
+
+
+    header {
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header nav a {
+      margin-left: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    header nav a:hover {
+      color: var(--secondary);
+    }
+
+
+    .hero {
+      padding: 120px 50px;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1621418495018-2f4d65f39864?auto=format&fit=crop&w=1400&q=80') center/cover;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 750px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+
+    .section {
+      padding: 70px 50px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 50px;
+    }
+
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+
+    .stats {
+      background: #0d1319;
+      padding: 70px 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stats h2 {
+      font-size: 2.4rem;
+      color: var(--primary);
+    }
+
+ 
+    .about {
+      background: var(--card);
+      padding: 60px;
+      margin: 40px auto;
+      border-radius: 12px;
+      max-width: 900px;
+      line-height: 1.8;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .about h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .referral-box {
+      background: #0f1520;
+      padding: 45px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .referral-box h3 {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+
+
+    .contact {
+      padding: 70px 50px;
+      text-align: center;
+      background: #0d0d0d;
+    }
+
+    .contact input, .contact textarea {
+      width: 60%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: none;
+      background: #111;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .contact textarea {
+      height: 120px;
+      resize: none;
+    }
+
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #000;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    
+    .footer {
+      font-size: 25px;
+      color: var(--light);
+      opacity: 0.8;
+    }
+    .footer:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+  </style>
+</head>
+<body>
+
+
+  <header>
+    <div class="logo">CryptoDailyMint</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#referral">Referrals</a>
+      <a href="#stats">Stats</a>
+      <a href="#contact">Contact</a>
+      <a href="#FAQ">FAQ</a>
+
+      <a href="/login" class="btn-primary">Login</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Earn USDT Daily, Securely & Automatically</h1>
+      <p>CryptoDailyMint lets you grow your digital wealth daily with stable USDT rewards. Zero risks. Zero stress. Just daily growth.</p>
+      <a href="/signup" class="btn-primary">Get Started</a>
+    </div>
+  </section>
+
+
+  <section class="section" id="features">
+    <h2 class="section-title">Why Choose CryptoDailyMint?</h2>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>Daily USDT Earnings</h3>
+        <p>Receive consistent daily rewards directly into your dashboard without delays.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Fast Deposits</h3>
+        <p>Your USDT deposits are confirmed within minutes, making it fast and easy to start earning instantly.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Secure & Transparent</h3>
+        <p>Real-time wallet monitoring and strong protection to keep your funds safe 24/7.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Instant Withdrawals</h3>
+        <p>Withdraw your USDT with lightning-fast automated processing.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>24/7 Customer Support</h3>
+        <p>Our team is always available to assist you with your investments.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="about" class="about">
+  <h2>About CryptoDailyMint</h2>
+  <p>
+    CryptoDailyMint is a next-generation digital earning platform designed to make stable, 
+    automated daily USDT income accessible to everyone—whether you're just entering the 
+    crypto world or you're an experienced investor. Our mission is simple: provide a 
+    secure, transparent, and effortless way to grow your digital assets.
+  </p>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">How CryptoDailyMint Generates Revenue</h3>
+  <p>
+    Our ecosystem generates revenue using a diversified and risk-controlled strategy:
+  </p>
+
+  <ul style="line-height:1.9; margin-left:20px;">
+    <li><strong>Institutional Liquidity Rentals:</strong> Partner liquidity providers supply
+      high-stability USDT yield streams used to fund consistent daily payouts.</li>
+
+    <li><strong>Smart Automated Market Operations:</strong> Our systems perform
+      low-risk market making and liquidity balancing across multiple exchanges.  
+      These operations generate predictable yield with controlled exposure.</li>
+
+    <li><strong>Blockchain Infrastructure Rewards:</strong> Part of our revenue comes
+      from running validator and node infrastructure for selected networks,
+      providing steady reward income without depending on market volatility.</li>
+
+    <li><strong>External Business Integrations:</strong> Partner companies use our API
+      services for stable-asset settlements, generating platform fees that help support payouts.</li>
+
+    <li><strong>Institutional Treasury Management:</strong> Our treasury interacts 
+      with vetted yield aggregators, providing additional revenue streams that 
+      strengthen long-term sustainability.</li>
+  </ul>
+
+  <p>
+    These combined sources ensure that user earnings remain stable and predictable,
+    regardless of short-term market movements.
+  </p>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">What Makes Us Unique?</h3>
+  <ul style="line-height:1.9; margin-left:20px;">
+    <li><strong>Real-Time Automated Payout System:</strong> Earnings are distributed 
+        instantly without delays or manual approvals.</li>
+
+    <li><strong>Zero-Loss Structure:</strong> User deposits are never exposed to
+        high-risk trading strategies. Our system focuses on stability, not volatility.</li>
+
+    <li><strong>Full Dashboard Transparency:</strong> Users can track their income,
+        referrals, deposits, and withdrawals in real-time.</li>
+
+    <li><strong>Global Liquidity Network:</strong> Our infrastructure is connected 
+        with multiple international partners, ensuring smooth USDT movement.</li>
+
+    <li><strong>Advanced Security Protocols:</strong> Multi-layer encryption, 
+        automated risk monitoring, and cold-storage treasury protection.</li>
+  </ul>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">Our Technology</h3>
+  <p>
+    CryptoDailyMint uses a combination of on-chain verification tools, automated yield 
+    engines, and secure distribution contracts to deliver fast and reliable income.  
+    Our nodes and backend systems run 24/7, ensuring 99.9% uptime and uninterrupted operations.
+  </p>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">Sustainability & Long-Term Vision</h3>
+  <p>
+    Our long-term focus is sustainability. We continuously refine our earning engines, 
+    expand partnerships, and improve treasury diversification. This ensures 
+    long-lasting stability and consistent growth for all users.
+  </p>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">Future Plans & Roadmap</h3>
+  <ul style="line-height:1.9; margin-left:20px;">
+    <li><strong>Mobile App (iOS & Android)</strong> — full dashboard, earnings, deposits, and withdrawals.</li>
+    <li><strong>Tiered Earning Levels</strong> — boost USDT rewards with higher membership tiers.</li>
+    <li><strong>AI-Powered Profit Insights</strong> — real-time analytics of your earnings and activity.</li>
+    <li><strong>Global Merchant Integration</strong> — use your USDT balance for online purchases.</li>
+    <li><strong>USDT Debit Card (Coming Soon)</strong> — spend your earnings anywhere instantly.</li>
+  </ul>
+
+  <h3 style="margin-top:25px; color:#0fcb80;">Trust, Security & Compliance</h3>
+  <p>
+    We operate with strict internal policies focused on user protection.  
+    All systems are monitored round-the-clock to detect irregularities.  
+    Every deposit and withdrawal is tracked with a transparent audit trail.
+  </p>
+
+  <p>
+    CryptoDailyMint was built with one purpose:  
+    <strong>to make earning USDT simple, predictable, and accessible for everyone.</strong>
+  </p>
+</section>
+
+
+
+  <section id="referral" class="section">
+    <div class="referral-box">
+      <h3>Earn 10% From Every Referral Deposit</h3>
+      <p>
+        Invite your friends and earn **10%** instantly from their deposits —  
+        automatically added to your USDT balance with no limits.
+      </p>
+      <br>
+      <a href="/signup" class="btn-primary">Start Referring</a>
+    </div>
+  </section>
+
+
+  <section class="stats" id="stats">
+    <div>
+      <h2>25,000+</h2>
+      <p>Active Investors</p>
+    </div>
+
+    <div>
+      <h2>$3.2M+</h2>
+      <p>Total USDT Earned</p>
+    </div>
+
+    <div>
+      <h2>99.9%</h2>
+      <p>System Uptime</p>
+    </div>
+
+    <div>
+      <h2>120+</h2>
+      <p>Countries Worldwide</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>Have questions? Send us a message and our support team will reply within minutes.</p>
+
+    <form action="/contact" method="POST" id="contactForm">
+      <input id="username-message" type="text" placeholder="Your Username" required><br>
+      <textarea id="message" placeholder="Your Message..." required></textarea><br>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+    <p id="responseMsg" style="margin-top:10px; font-weight:bold;"></p>
+  </section>
+
+  <footer>
+    <p class="footer"><a href="/terms" target="_blank" style="color:#0fcb80;">Terms & Conditions</a></p>
+    <p class="footer"><a href="/privacy" target="_blank" style="color:#0fcb80;">Privacy Policy</a></p>
+    <p class="footer"><a href="/FAQ" id="FAQ" target="_blank" style="color:#0fcb80;">Frequently Asked Questions</a></p>
+    <p class="footer"><a href="/trust-security" target="_blank" style="color:#0fcb80;">Trust & Security</a>.</p>
+    © 2025 CryptoDailyMint. All rights reserved.
+  </footer>
+<script src="/script.js"></script>
+</body>
+</html>
