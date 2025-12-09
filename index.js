@@ -5,23 +5,22 @@ const bcrypt = require("bcrypt")
 const mongoose = require("mongoose")
 const path = require("path")
 const PORT = process.env.PORT || 5000
-const bodyParser = require("body-parser")
 const cors = require("cors");
 const { Server } = require("socket.io");
 const http = require("http");
-const MONGO = process.env.MONGO || "mongodb://localhost:27017/Main"
+const MONGO = process.env.MONGO
 const EARNINTERVAL = Number(process.env.EARNINTERVAL || 1000)
 const crypto = require("crypto")
 const QRCode = require("qrcode")
 const multer = require("multer")
 const jwt = require("jsonwebtoken");
 const ORIGIN = process.env.ORIGIN || "*";
-const JWT_SECRET = process.env.JWT_SECRET || "replace-me-with-strong-secret";
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "replace-refresh-secret";
-const MINING_DURATION_MS = Number(process.env.MINING_DURATION_MS || 30 * 24 * 60 * 60 * 1000); // 30 days
+const JWT_SECRET = process.env.JWT_SECRET
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET
+const MINING_DURATION_MS = 30 * 24 * 60 * 60 * 1000
 const SALT_ROUNDS = 10;
-const REFERRAL_BONUS_PERCENT = 10; // percent
-const TRANSFER_FEE_RATE = 0.015; // 1.5%
+const REFERRAL_BONUS_PERCENT = 10;
+const TRANSFER_FEE_RATE = 0.015;
 const MIN_WITHDRAWAL = 50;
 
 const collection = require("./config")
@@ -54,9 +53,6 @@ const upload = multer({
 });
 
 
-mongoose.connect(MONGO)
-.then(() => {console.log("MongoDB connected")})
-.catch(() => {console.log("Not connected")})
 
 app.use(express.json())
 
@@ -641,6 +637,7 @@ io.on("connection", (socket) => {
 
 
 
+function startMiningLoop() {
 setInterval(async () => {
   const now = Date.now();
 
@@ -678,10 +675,22 @@ setInterval(async () => {
     { isMining: false }
   );
 }, EARNINTERVAL);
+}
 
 
 
-server.listen(PORT, () => {
-    console.log(`Running on port: ${PORT}`)
+mongoose.connect(MONGO_URI, {
 })
+.then(() => {
+  console.log("✅ MongoDB connected");
+
+  server.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+  });
+startMiningLoop()
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection failed:", err.message);
+  process.exit(1);
+});
 
