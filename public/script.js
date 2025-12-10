@@ -409,7 +409,7 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(`${API_BASE}/deposit/${user.username}`
+  const res = await authFetch(`/deposit/${user.username}`
 );
   const data = await res.json();
 
@@ -492,7 +492,7 @@ confirmBtn.addEventListener("click", async () => {
 const withdraw = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(`${API_BASE}/withdrawal/${user.username}`
+  const res = await authFetch(`/withdrawal/${user.username}`
 );
   const data = await res.json();
   
@@ -539,7 +539,7 @@ if (newPassword !== confirmPassowrd) {
   const loadTransactions = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
     
-  const res = await authFetch(`${API_BASE}/transactions/${user.username}`
+  const res = await authFetch(`/transactions/${user.username}`
 );
   const data = await res.json();
 
