@@ -409,8 +409,8 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(https://cryptodailymint.onrender.com/deposit/username
-);
+  const res = await authFetch("https://cryptodailymint.onrender.com/dashboard/deposit/username
+");
   const data = await res.json();
 
   const username = document.getElementById("username-id")
@@ -492,8 +492,8 @@ confirmBtn.addEventListener("click", async () => {
 const withdraw = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(https://cryptodailymint.onrender.com/withdrawal/username
-);
+  const res = await authFetch("https://cryptodailymint.onrender.com/dashboard/withdrawal/username
+");
   const data = await res.json();
   
   const userBalance = document.getElementById("user-balance");
@@ -539,8 +539,8 @@ if (newPassword !== confirmPassowrd) {
   const loadTransactions = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
     
-  const res = await authFetch(https://cryptodailymint.onrender.com/transactions/username
-);
+  const res = await authFetch("https://cryptodailymint.onrender.com/dashboard/transactions/username
+");
   const data = await res.json();
 
   const tbody = document.getElementById("transactionsBody");
