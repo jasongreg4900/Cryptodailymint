@@ -1,9 +1,7 @@
-const host = `${location.protocol}//${location.hostname}:5000`;
+const socket = io("https://cryptodailymint.onrender.com", {
+  transports: ["websocket"]
+});
 
-let socket = null;
-if (typeof io !== "undefined") {
-  socket = io(host);
-}
 
 const signupForm = document.getElementById("signup-form");
 const loginForm = document.getElementById("login-form");
@@ -75,17 +73,32 @@ if (form) {
 
 
 
-const authFetch = async (url, options = {}) => {
+const API_BASE = "https://cryptodailymint.onrender.com";
+
+const authFetch = async (path, options = {}) => {
   const token = localStorage.getItem("accessToken");
 
-  options.headers = {
-    ...(options.headers || {}),
-    "Authorization": `Bearer ${token}`,
-    "Content-Type": "application/json"
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    ...(options.headers || {})
   };
 
-  return fetch(url, options);
+  if (!(options.body instanceof FormData)) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  const res = await fetch(`${API_BASE}/${path}`, {
+    ...options,
+    headers
+  });
+
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status}`);
+  }
+
+  return res;
 };
+
 
 
 
@@ -211,10 +224,15 @@ const depositProof = async () => {
   formData.append("proof", file);
   formData.append("userId", userId);
 
-  const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
-    method: "POST",
-    body: formData
-  });
+  const token = localStorage.getItem("accessToken");
+
+const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${token}`
+  },
+  body: formData
+});
 
   const data = await res.json();
   if (data.success) {
@@ -270,7 +288,7 @@ const recoverAccount = async () => {
 
 
 const dashboard = () => {
-  if (window.location.pathname !== "https://cryptodailymint.onrender.com/dashboard") return;
+  if (window.location.pathname !== "/dashboard") return;
 
   const user = JSON.parse(localStorage.getItem("user") || "null");
   if (!user) return (window.location.href = "https://cryptodailymint.onrender.com/login");
