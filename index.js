@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 const cors = require("cors");
 const { Server } = require("socket.io");
 const http = require("http");
-const MONGO_URL = process.env.MONGO_URL
+const MONGO_URL = process.env.MONGO_URL || mongodb+srv://jasongreg4900:Ganicuz2019@cluster0.gofxyck.mongodb.net/?appName=Cluster0
 const EARNINTERVAL = Number(process.env.EARNINTERVAL || 1000)
 const crypto = require("crypto")
 const QRCode = require("qrcode")
