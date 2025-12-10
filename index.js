@@ -29,6 +29,21 @@ const Deposit = require("./config3")
 const Message = require("./config4")
 
 
+mongoose.connect(MONGO_URI, {
+})
+.then(() => {
+  console.log("✅ MongoDB connected");
+
+  server.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+  });
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection failed:", err.message);
+  process.exit(1);
+});
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, path.join(__dirname, "uploads")),
   filename: (req, file, cb) => {
@@ -677,19 +692,4 @@ setInterval(async () => {
 }, EARNINTERVAL);
 
 
-
-
-mongoose.connect(MONGO_URI, {
-})
-.then(() => {
-  console.log("✅ MongoDB connected");
-
-  server.listen(PORT, () => {
-    console.log(`✅ Server running on port ${PORT}`);
-  });
-})
-.catch((err) => {
-  console.error("❌ MongoDB connection failed:", err.message);
-  process.exit(1);
-});
 
