@@ -280,7 +280,7 @@ const recoverAccount = async () => {
       window.location.href = "https://cryptodailymint.onrender.com/login";
     }, 2000);
   } else {
-    msg.textContent = data.message; // FIXED TYPO
+    msg.textContent = data.message;
     msg.style.color = "red";
   }
 };
@@ -409,7 +409,7 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch("https://cryptodailymint.onrender.com/deposit/username"
+  const res = await authFetch(`https://cryptodailymint.onrender.com/deposit/${user.username}`
 );
   const data = await res.json();
 
@@ -492,7 +492,7 @@ confirmBtn.addEventListener("click", async () => {
 const withdraw = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch("https://cryptodailymint.onrender.com/withdrawal/username"
+  const res = await authFetch(`https://cryptodailymint.onrender.com/withdrawal/${user.username}`
 );
   const data = await res.json();
   
@@ -539,7 +539,7 @@ if (newPassword !== confirmPassowrd) {
   const loadTransactions = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
     
-  const res = await authFetch("https://cryptodailymint.onrender.com/transactions/username"
+  const res = await authFetch(`https://cryptodailymint.onrender.com/transactions/${user.username}`
 );
   const data = await res.json();
 
