@@ -637,7 +637,7 @@ io.on("connection", (socket) => {
 
 
 
-function startMiningLoop() {
+
 setInterval(async () => {
   const now = Date.now();
 
@@ -675,7 +675,7 @@ setInterval(async () => {
     { isMining: false }
   );
 }, EARNINTERVAL);
-}
+
 
 
 
@@ -687,7 +687,6 @@ mongoose.connect(MONGO_URI, {
   server.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);
   });
-startMiningLoop()
 })
 .catch((err) => {
   console.error("❌ MongoDB connection failed:", err.message);
