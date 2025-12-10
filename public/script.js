@@ -409,7 +409,7 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(https://cryptodailymint.onrender.com/dashboard/deposit/username
+  const res = await authFetch(https://cryptodailymint.onrender.com/deposit/username
 );
   const data = await res.json();
 
