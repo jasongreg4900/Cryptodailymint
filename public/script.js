@@ -1,6 +1,9 @@
-const socket = io("https://cryptodailymint.onrender.com", {
-  transports: ["websocket"]
-});
+const host = "https://cryptodailymint.onrender.com"
+
+let socket = null;
+if (typeof io !== "undefined") {
+  socket = io(host);
+}
 
 
 const signupForm = document.getElementById("signup-form");
