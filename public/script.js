@@ -464,7 +464,7 @@ const withdrawal = async () => {
 confirmBtn.addEventListener("click", async () => {
   dialog.close();
 
-    const res = await authFetch("https://cryptodailymint.onrender.com/transfer", {
+    const res = await authFetch("transfer", {
       method: "POST",
       body: JSON.stringify({
         sender: user.username,
@@ -515,7 +515,7 @@ if (newPassword !== confirmPassowrd) {
     return;
   }
 
-  const res = await authFetch("https://cryptodailymint.onrender.com/change-password", {
+  const res = await authFetch("change-password", {
     method: "POST",
     body: JSON.stringify({ username: user.username, oldPassword, newPassword })
   });
