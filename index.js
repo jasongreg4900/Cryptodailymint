@@ -319,7 +319,7 @@ app.post("/recover", async (req, res) => {
 
 
 
-app.post("/change-password", requireAuth, async (req, res) => {
+app.post("/change-password", async (req, res) => {
 
   const { username, oldPassword, newPassword} = req.body
 
@@ -432,7 +432,7 @@ app.post("/admin/approve/:depositId", requireAuth, requireAdmin, async (req, res
 
 
 
-app.post("/transfer", requireAuth, async (req, res) => {
+app.post("/transfer", async (req, res) => {
   const { sender, receiver, amount } = req.body;
   const transferAmount = Number(amount);
   const feeRate = TRANSFER_FEE_RATE;
