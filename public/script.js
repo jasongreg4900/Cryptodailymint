@@ -463,8 +463,13 @@ const withdrawal = async () => {
 confirmBtn.addEventListener("click", async () => {
   dialog.close();
 
-    const res = await authFetch("/transfer", {
+  const token = localStorage.getItem("accessToken");
+
+    const res = await fetch("https://cryptodailymint.onrender.com/transfer", {
       method: "POST",
+      headers: {
+    Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify({
         sender: user.username,
         receiver,
@@ -514,8 +519,13 @@ if (newPassword !== confirmPassowrd) {
     return;
   }
 
-  const res = await authFetch("/change-password", {
+  const token = localStorage.getItem("accessToken");
+
+  const res = await fetch("https://cryptodailymint.onrender.com/change-password", {
     method: "POST",
+    headers: {
+    Authorization: `Bearer ${token}`
+    },
     body: JSON.stringify({ username: user.username, oldPassword, newPassword })
   });
 
