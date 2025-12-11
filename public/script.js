@@ -76,7 +76,6 @@ if (form) {
 
 
 
-const API_BASE = "https://cryptodailymint.onrender.com";
 
 const authFetch = async (path, options = {}) => {
   const token = localStorage.getItem("accessToken");
@@ -90,7 +89,7 @@ const authFetch = async (path, options = {}) => {
     headers["Content-Type"] = "application/json";
   }
 
-  const res = await fetch(`${API_BASE}/${path}`, {
+  const res = await fetch(`${host}/${path}`, {
     ...options,
     headers
   });
@@ -464,7 +463,7 @@ const withdrawal = async () => {
 confirmBtn.addEventListener("click", async () => {
   dialog.close();
 
-    const res = await authFetch("/transfer", {
+    const res = await authFetch(`/transfer`, {
       method: "POST",
       body: JSON.stringify({
         sender: user.username,
@@ -515,7 +514,7 @@ if (newPassword !== confirmPassowrd) {
     return;
   }
 
-  const res = await authFetch("/change-password", {
+  const res = await authFetch(`/change-password`, {
     method: "POST",
     body: JSON.stringify({ username: user.username, oldPassword, newPassword })
   });
