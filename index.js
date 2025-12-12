@@ -465,7 +465,7 @@ app.post("/transfer", async (req, res) => {
     message: `Insufficient funds.`
   })
 
-  const transaction = new Transaction({ sender: senderUser.username, senderAddress: senderUser.address, receiver: receiverUser.username, receiverAddress: receiverUser.address, type: "transfer", amount: totalDeduction, fee });
+  const transaction = new Transaction({ sender: senderUser.username, senderAddress: senderUser.address, receiver: receiverUser.username, receiverAddress: receiverUser.address, type: "transfer", amount: transferAmount, fee });
   await transaction.save();
 
     await collection.findByIdAndUpdate(senderUser._id, { $inc: { balance: -totalDeduction } });
@@ -502,7 +502,7 @@ app.post("/transfer", async (req, res) => {
     }
   }
 
-  const transaction = new Transaction({ sender: senderUser.username, senderAddress: senderUser.address, receiver: receiverUser.username, receiverAddress: receiverUser.address, type: "transfer", amount: totalDeduction, fee });
+  const transaction = new Transaction({ sender: senderUser.username, senderAddress: senderUser.address, receiver: receiverUser.username, receiverAddress: receiverUser.address, type: "transfer", amount: transferAmount, fee });
   await transaction.save();
 
   await senderUser.save();
