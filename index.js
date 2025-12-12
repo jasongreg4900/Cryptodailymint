@@ -104,6 +104,23 @@ async function requireAuth(req, res, next) {
   }
 }
 
+
+// Refresh token
+app.post("/token/refresh", async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) return res.status(401).json({ success: false });
+
+  try {
+    const payload = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
+    const newAccess = signAccessToken({ id: payload.id, username: payload.username, role: payload.role });
+    return res.json({ success: true, accessToken: newAccess });
+  } catch (err) {
+    return res.status(401).json({ success: false, message: "Invalid refresh token" });
+  }
+})
+
+
+
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "views/home.html")));
 app.get("/signup", (req, res) => res.sendFile(path.join(__dirname, "views/signup.html")));
 app.get("/login", (req, res) => res.sendFile(path.join(__dirname, "views/login.html")));
@@ -269,20 +286,6 @@ app.post("/login", async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error" });
   }
 });
-
-// Refresh token
-app.post("/token/refresh", async (req, res) => {
-  const { refreshToken } = req.body;
-  if (!refreshToken) return res.status(401).json({ success: false });
-
-  try {
-    const payload = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
-    const newAccess = signAccessToken({ id: payload.id, username: payload.username, role: payload.role });
-    return res.json({ success: true, accessToken: newAccess });
-  } catch (err) {
-    return res.status(401).json({ success: false, message: "Invalid refresh token" });
-  }
-})
 
 
 
