@@ -265,8 +265,6 @@ app.post("/login", async (req, res) => {
 
     const payload = { id: user._id.toString(), username: user.username, role: user.role };
 
-    const accessToken = signAccessToken(payload);
-    const refreshToken = signRefreshToken(payload);
 
     const safeUser = {
       username: user.username,
@@ -322,7 +320,7 @@ app.post("/recover", async (req, res) => {
 
 
 
-app.post("/change-password", requireAuth, async (req, res) => {
+app.post("/change-password", async (req, res) => {
 
   const { username, oldPassword, newPassword} = req.body
 
@@ -348,7 +346,7 @@ if (!oldPassword || !newPassword) {
 
 
 
-app.post("/upload-proof", requireAuth, upload.single("proof"), async (req, res) => {
+app.post("/upload-proof", upload.single("proof"), async (req, res) => {
   try {
     const { amount, userId } = req.body;
 
@@ -386,7 +384,7 @@ function requireAdmin(req, res, next) {
 
 
 
-app.post("/admin/approve/:depositId", requireAuth, requireAdmin, async (req, res) => {
+app.post("/admin/approve/:depositId", async (req, res) => {
   try {
     const dep = await Deposit.findById(req.params.depositId);
     if (!dep) return res.json({ success: false, message: "Deposit not found" });
@@ -435,7 +433,7 @@ app.post("/admin/approve/:depositId", requireAuth, requireAdmin, async (req, res
 
 
 
-app.post("/transfer", requireAuth, async (req, res) => {
+app.post("/transfer", async (req, res) => {
   const { sender, receiver, amount } = req.body;
   const transferAmount = Number(amount);
   const feeRate = TRANSFER_FEE_RATE;
@@ -535,9 +533,9 @@ const sockets = await io.fetchSockets()
 
 
 
-app.get("/transactions/:username", requireAuth, async (req, res) => {
+app.get("/transactions/:username", async (req, res) => {
   try {
-    const username = req.params.username;
+    const username = req.params.username.toLowerCase();
     const txs = await Transaction.find({ $or: [{ sender: username }, { receiver: username }] }).sort({ date: -1 }).limit(200);
     return res.json({ success: true, transactions: txs });
   } catch (err) {
@@ -547,7 +545,7 @@ app.get("/transactions/:username", requireAuth, async (req, res) => {
 });
 
 
-app.get("/deposit/:username", requireAuth, async (req, res) => {
+app.get("/deposits/:username", async (req, res) => {
   try {
     const username = req.params.username.toLowerCase();
     const user = await collection.findOne({ username });
@@ -561,7 +559,7 @@ app.get("/deposit/:username", requireAuth, async (req, res) => {
 });
 
 
-app.get("/withdrawal/:username", requireAuth, async (req, res) => {
+app.get("/withdrawal/:username", async (req, res) => {
   try {
     const username = req.params.username.toLowerCase();
     const withdraws = await Transaction.find({ sender: username, type: "withdrawal" }).sort({ date: -1 });
