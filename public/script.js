@@ -217,12 +217,12 @@ const response = await fetch("https://cryptodailymint.onrender.com/login", {
 const depositProof = async () => {
   const amount = document.getElementById("amount").value;
   const file = document.getElementById("proof").files[0];
-  const userId = localStorage.getItem("user")
+  const userId = JSON.parse(localStorage.getItem("user"))
 
   const formData = new FormData();
   formData.append("amount", amount);
   formData.append("proof", file);
-  formData.append("user", userId);
+  formData.append("user", userId.username);
 
 
 const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
