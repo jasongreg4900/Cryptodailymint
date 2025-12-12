@@ -1,7 +1,7 @@
 const host = "https://cryptodailymint.onrender.com"
 
 let socket = null;
-if (typeof io !== "undefined") {n
+if (typeof io !== "undefined") {
   socket = io(host);
 }
 
