@@ -402,7 +402,7 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await fetch("https://cryptodailymint.onrender.com/deposits/username"
+  const res = await fetch(`https://cryptodailymint.onrender.com/deposits/${user.username}`
 );
   const data = await res.json();
 
@@ -521,7 +521,7 @@ if (newPassword !== confirmPassowrd) {
   const loadTransactions = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
     
-  const res = await fetch("https://cryptodailymint.onrender.com/transactions/username"
+  const res = await fetch(`https://cryptodailymint.onrender.com/transactions/${user.username}`
 );
   const data = await res.json();
 
