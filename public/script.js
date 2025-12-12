@@ -1,7 +1,7 @@
 const host = "https://cryptodailymint.onrender.com"
 
 let socket = null;
-if (typeof io !== "undefined") {
+if (typeof io !== "undefined") {n
   socket = io(host);
 }
 
@@ -216,13 +216,13 @@ const response = await fetch("https://cryptodailymint.onrender.com/login", {
 
 const depositProof = async () => {
   const amount = document.getElementById("amount").value;
+  const userId = document.getElementById("username-id").value.trim();
   const file = document.getElementById("proof").files[0];
-  const userId = localStorage.getItem("userId")
 
   const formData = new FormData();
   formData.append("amount", amount);
   formData.append("proof", file);
-  formData.append("userId", userId);
+  formData.append("username-id", userId);
 
 
 const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
