@@ -203,8 +203,6 @@ const response = await fetch("https://cryptodailymint.onrender.com/login", {
         if (data.success) {
             window.location.href = "https://cryptodailymint.onrender.com/dashboard"
             loginForm.reset()
-            localStorage.setItem("accessToken", data.accessToken);
-            localStorage.setItem("refreshToken", data.refreshToken)
             localStorage.setItem("user", JSON.stringify(data.user))
         }
         else {
@@ -226,13 +224,9 @@ const depositProof = async () => {
   formData.append("proof", file);
   formData.append("userId", userId);
 
-  const token = localStorage.getItem("accessToken");
 
 const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
   method: "POST",
-  headers: {
-    Authorization: `Bearer ${token}`
-  },
   body: formData
 });
 
@@ -408,7 +402,7 @@ dashboard();
 const deposit = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const res = await authFetch(`deposit/${user.username}`
+  const res = await fetch("https://cryptodailymint.onrender.com/deposits/username"
 );
   const data = await res.json();
 
@@ -463,13 +457,9 @@ const withdrawal = async () => {
 confirmBtn.addEventListener("click", async () => {
   dialog.close();
 
-  const token = localStorage.getItem("accessToken");
-
     const res = await fetch("https://cryptodailymint.onrender.com/transfer", {
       method: "POST",
-      headers: {
-    Authorization: `Bearer ${token}`
-  },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sender: user.username,
         receiver,
@@ -493,20 +483,6 @@ confirmBtn.addEventListener("click", async () => {
 
 
 
-const withdraw = async () => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-
-  const res = await authFetch(`withdrawal/${user.username}`
-);
-  const data = await res.json();
-  
-  const userBalance = document.getElementById("user-balance");
-  userBalance.textContent = Number(user.balance).toFixed(4)
-}
-withdraw()
-
-
-
 const changePassword = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
   const oldPassword = oldPass.value;
@@ -519,14 +495,10 @@ if (newPassword !== confirmPassowrd) {
     return;
   }
 
-  const token = localStorage.getItem("accessToken");
-
 
   const res = await fetch("https://cryptodailymint.onrender.com/change-password", {
     method: "POST",
-    headers: {
-    Authorization: `Bearer ${token}`
-  },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username: user.username, oldPassword, newPassword })
   });
 
@@ -549,7 +521,7 @@ if (newPassword !== confirmPassowrd) {
   const loadTransactions = async () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
     
-  const res = await authFetch(`transactions/${user.username}`
+  const res = await fetch("https://cryptodailymint.onrender.com/transactions/username"
 );
   const data = await res.json();
 
@@ -594,7 +566,5 @@ loadTransactions()
 
     const logout = () => {
     localStorage.removeItem("user")
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken")
     window.location.href = "https://cryptodailymint.onrender.com/"
 }
