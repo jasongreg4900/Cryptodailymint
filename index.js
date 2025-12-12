@@ -353,7 +353,7 @@ app.post("/upload-proof", upload.single("proof"), async (req, res) => {
     }
 
     const deposit = new Deposit({
-      username: userId,
+      userId,
       amount: Number(amount),
       imageUrl: "/uploads/" + req.file.filename,
       status: "pending",
