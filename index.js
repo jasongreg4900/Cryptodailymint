@@ -263,8 +263,6 @@ app.post("/login", async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.json({ success: false, message: "Invalid username or password" });
 
-    const payload = { id: user._id.toString(), username: user.username, role: user.role };
-
 
     const safeUser = {
       username: user.username,
@@ -278,7 +276,7 @@ app.post("/login", async (req, res) => {
       miningEndsAt: user.miningEndsAt || null,
     };
 
-    return res.json({ success: true, message: "Login successful", accessToken, refreshToken, user: safeUser });
+    return res.json({ success: true, message: "Login successful", user: safeUser });
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).json({ success: false, message: "Server error" });
