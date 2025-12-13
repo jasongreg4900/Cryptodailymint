@@ -346,14 +346,21 @@ if (!oldPassword || !newPassword) {
 
 app.post("/upload-proof", upload.single("proof"), async (req, res) => {
   try {
-    const { username, amount, userId } = req.body;
+    const { username, amount} = req.body;
+
+    if (!username || !amount) {
+      return res.json({
+        success: false,
+        message: "Username and amount are required."
+      });
+    }
 
     if (!req.file) {
       return res.json({ success: false, message: "No file uploaded" });
     }
 
     const deposit = new Deposit({
-      userId,
+      username,
       amount: Number(amount),
       imageUrl: "/uploads/" + req.file.filename,
       status: "pending",
