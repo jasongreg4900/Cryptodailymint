@@ -216,7 +216,7 @@ const response = await fetch("https://cryptodailymint.onrender.com/login", {
 
 const depositProof = async () => {
   const amount = document.getElementById("amount").value;
-  const username = document.getElementById("userId").value.trim();
+  const username = document.getElementById("username").value.trim();
   const file = document.getElementById("proof").files[0];
 
   const formData = new FormData();
