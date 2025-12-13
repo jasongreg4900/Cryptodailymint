@@ -218,13 +218,11 @@ const depositProof = async () => {
   const amount = document.getElementById("amount").value;
   const username = document.getElementById("username-id").value.trim();
   const file = document.getElementById("proof").files[0];
-  const userId = localStorage.getItem("userId")
 
   const formData = new FormData();
   formData.append("amount", amount);
   formData.append("username-id", username);
   formData.append("proof", file);
-  formData.append("userId", userId);
 
 
 const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
@@ -245,10 +243,17 @@ const res = await fetch("https://cryptodailymint.onrender.com/upload-proof", {
 const recoverAccount = async () => {
   const username = document.getElementById("username").value.trim();
   const recoveryCode = document.getElementById("recoveryCode").value.trim();
-  const newPassword = document.getElementById("newPassword").value.trim();
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
   const msg = document.getElementById("msg");
 
   msg.textContent = "";
+
+  if (newPassword ==! confirmPassword) {
+    msg.textContent = "Password do not match.";
+    msg.style.color = "red";
+    return;
+  }
 
   if (!username || !recoveryCode || !newPassword) {
     msg.textContent = "All fields are required.";
