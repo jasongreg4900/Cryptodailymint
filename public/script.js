@@ -221,7 +221,7 @@ const depositProof = async () => {
 
   const formData = new FormData();
   formData.append("amount", amount);
-  formData.append("userId", username);
+  formData.append("username", username);
   formData.append("proof", file);
 
 
