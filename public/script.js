@@ -221,7 +221,7 @@ const depositProof = async () => {
 
   const formData = new FormData();
   formData.append("amount", amount);
-  formData.append("username", username);
+  formData.append("userId", username);
   formData.append("proof", file);
 
 
@@ -533,7 +533,6 @@ if (newPassword !== confirmPassowrd) {
   const data = await res.json();
 
   const tbody = document.getElementById("transactionsBody");
-  tbody.innerHTML = "";
 
   if (data.success && data.transactions.length > 0) {
     data.transactions.forEach((tx) => {
