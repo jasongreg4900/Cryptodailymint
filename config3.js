@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const depositSchema = new mongoose.Schema({
-  userId: String,
+  username: String,
   amount: Number,
   imageUrl: String,
   status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
