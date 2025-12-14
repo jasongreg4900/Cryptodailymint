@@ -22,6 +22,8 @@ const SALT_ROUNDS = 10;
 const REFERRAL_BONUS_PERCENT = 10;
 const TRANSFER_FEE_RATE = 0.015;
 const MIN_WITHDRAWAL = 50;
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 
 const collection = require("./config")
 const Transaction = require("./config2")
@@ -135,6 +137,7 @@ app.get("/terms", (req, res) => res.sendFile(path.join(__dirname, "views/terms.h
 app.get("/trust-security", (req, res) => res.sendFile(path.join(__dirname, "views/trust-security.html")))
 app.get("/recover", (req, res) => res.sendFile(path.join(__dirname, "views/recover.html")))
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "views/admin.html")));
+app.get("/admin/login", (req, res) => res.sendFile(path.join(__dirname, "views/admin-login.html")));
 
 
 app.get("/admin/data", async (req, res) => {
@@ -177,6 +180,43 @@ app.post("/admin/user/role", async (req, res) => {
   const { username, role } = req.body;
   await collection.findByIdAndUpdate(username, { role });
   res.json({ success: true });
+});
+
+
+app.post("/admin/user/mining", async (req, res) => {
+  const { username, isMining } = req.body;
+
+  const update = isMining
+    ? {
+        isMining: true,
+        miningStartedAt: Date.now(),
+        miningEndsAt: Date.now() + 30 * 24 * 60 * 60 * 1000
+      }
+    : {
+        isMining: false,
+        miningStartedAt: null,
+        miningEndsAt: null
+      };
+
+  await collection.findByIdAndUpdate(username, update);
+  res.json({ success: true });
+});
+
+
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    return res.json({
+      success: true,
+      message: "Login successful"
+    });
+  }
+
+  res.json({
+    success: false,
+    message: "Invalid admin credentials"
+  });
 });
 
 
