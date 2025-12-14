@@ -155,7 +155,6 @@ btn.addEventListener("click", async () => {
   }
 });
 
-const logout = document.getElementById("adminLogoutBtn");
 
 const logout = () => {
     localStorage.removeItem("adminLoggedIn")
