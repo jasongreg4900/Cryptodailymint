@@ -1,7 +1,3 @@
-if (!localStorage.getItem("adminLoggedIn")) {
-  window.location.href = "https://cryptodailymint.onrender.com/admin/login";
-}
-
 const host = "https://cryptodailymint.onrender.com";
 
 async function loadAdmin() {
