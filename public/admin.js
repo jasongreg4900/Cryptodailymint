@@ -1,3 +1,7 @@
+if (!localStorage.getItem("adminLoggedIn")) {
+  window.location.href = "https://cryptodailymint.onrender.com/admin/login";
+}
+
 const host = "https://cryptodailymint.onrender.com";
 
 async function loadAdmin() {
@@ -129,4 +133,30 @@ async function deleteMessage(id) {
 }
 
 loadAdmin();
+
+
+const btn = document.getElementById("adminLoginBtn");
+const msg = document.getElementById("loginMsg");
+
+btn.addEventListener("click", async () => {
+  const username = document.getElementById("admin-username").value.trim();
+  const password = document.getElementById("admin-password").value.trim();
+
+  const res = await fetch(`${host}/admin/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    localStorage.setItem("adminLoggedIn", "true");
+    window.location.href = "https://cryptodailymint.onrender.com/admin";
+  } else {
+    msg.textContent = data.message;
+    msg.style.color = "red";
+  }
+});
+
 
