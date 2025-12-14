@@ -134,11 +134,50 @@ app.get("/privacy", (req, res) => res.sendFile(path.join(__dirname, "views/priva
 app.get("/terms", (req, res) => res.sendFile(path.join(__dirname, "views/terms.html")))
 app.get("/trust-security", (req, res) => res.sendFile(path.join(__dirname, "views/trust-security.html")))
 app.get("/recover", (req, res) => res.sendFile(path.join(__dirname, "views/recover.html")))
+app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "views/admin.html")));
 
 
+app.get("/admin/data", async (req, res) => {
+  const users = await collection.find().lean();
+  const deposits = await Deposit.find().lean();
+  const transactions = await Transaction.find().lean();
+  const messages = await Message.find().lean();
+
+  res.json({ users, deposits, transactions, messages });
+});
 
 
+app.post("/admin/user/update", async (req, res) => {
+  const { username, update } = req.body;
+  await collection.findByIdAndUpdate(username, { $set: update });
+  res.json({ success: true });
+});
 
+app.post("/admin/user/ban", async (req, res) => {
+  const { username, banned } = req.body;
+  await collection.findByIdAndUpdate(username, { banned });
+  res.json({ success: true });
+});
+
+
+app.post("/admin/user/balance", async (req, res) => {
+  const { username, amount } = req.body;
+  await collection.findByIdAndUpdate(username, { $inc: { balance: Number(amount) } });
+  res.json({ success: true });
+});
+
+
+app.post("/admin/message/delete", async (req, res) => {
+  await Message.findByIdAndDelete(req.body.messageId);
+  res.json({ success: true });
+});
+
+
+app.post("/admin/user/role", async (req, res) => {
+  const { username, role } = req.body;
+  await collection.findByIdAndUpdate(username, { role });
+  res.json({ success: true });
+});
 
 
 
