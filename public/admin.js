@@ -97,7 +97,7 @@ function renderDeposits(deps) {
 }
 
 async function approveDeposit(id) {
-  await fetch(`${host}/admin/deposit/approve`, {
+  await fetch(`${host}/admin/approve/username`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username: id })
