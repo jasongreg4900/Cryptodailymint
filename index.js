@@ -481,7 +481,7 @@ app.post("/admin/approve/:username", async (req, res) => {
     const user = await collection.findById(dep.username);
     if (!user) return res.json({ success: false, message: "User not found" });
 
-    await collection.findByIdAndUpdate(dep.userId, { $inc: { balance: dep.amount }})
+    await collection.findByIdAndUpdate(dep.username, { $inc: { balance: dep.amount }})
 
     // ================================
     // ✅ REFERRAL BONUS SYSTEM
@@ -634,7 +634,7 @@ app.get("/deposits/:username", async (req, res) => {
     const username = req.params.username.toLowerCase();
     const user = await collection.findOne({ username });
     if (!user) return res.json({ success: false, message: "User not found" });
-    const deposits = await Deposit.find({ userId: user._id }).sort({ date: -1 });
+    const deposits = await Deposit.find({ username: user._id }).sort({ date: -1 });
     return res.json({ success: true, deposits });
   } catch (err) {
     console.error("Deposit fetch error:", err);
