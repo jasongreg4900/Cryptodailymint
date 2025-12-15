@@ -80,14 +80,24 @@ async function setRole(id, role) {
   loadAdmin();
 }
 
+
 function renderDeposits(deps) {
   const div = document.getElementById("deposits");
   div.innerHTML = "";
 
   deps.forEach(d => {
     div.innerHTML += `
-      <div style="margin-bottom:10px;">
-        <strong>${d.username}</strong> — ${d.amount} — ${d.status}
+      <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+        <p><b>User:</b> ${d.username}</p>
+        <p><b>Amount:</b> ${d.amount}</p>
+        <p><b>Status:</b> ${d.status}</p>
+
+        ${
+          d.imageUrl
+            ? `<img src="${host}${d.imageUrl}" style="max-width:300px; display:block; margin:10px 0;" />`
+            : "No image"
+        }
+
         ${
           d.status === "pending"
             ? `<button onclick="approveDeposit('${d._id}')">Approve</button>`
@@ -97,6 +107,7 @@ function renderDeposits(deps) {
     `;
   });
 }
+
 
 
 
