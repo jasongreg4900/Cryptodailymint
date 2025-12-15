@@ -131,7 +131,7 @@ async function deleteMessage(id) {
   await fetch(`${host}/admin/message/delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username: id })
+    body: JSON.stringify({ messageId: id })
   });
   loadAdmin();
 }
