@@ -468,9 +468,9 @@ function requireAdmin(req, res, next) {
 
 
 
-app.post("/admin/approve/:depositId", async (req, res) => {
+app.post("/admin/approve/:username", async (req, res) => {
   try {
-    const dep = await Deposit.findById(req.params.depositId);
+    const dep = await Deposit.findById(req.params.username);
     if (!dep) return res.json({ success: false, message: "Deposit not found" });
     if (dep.status === "approved") return res.json({ success: false, message: "Already approved" });
 
@@ -478,7 +478,7 @@ app.post("/admin/approve/:depositId", async (req, res) => {
     await dep.save();
 
     // Add deposit amount to user balance
-    const user = await collection.findById(dep.userId);
+    const user = await collection.findById(dep.username);
     if (!user) return res.json({ success: false, message: "User not found" });
 
     await collection.findByIdAndUpdate(dep.userId, { $inc: { balance: dep.amount }})
