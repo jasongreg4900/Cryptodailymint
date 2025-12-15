@@ -259,6 +259,8 @@ app.post("/admin/approve/:depositId", async (req, res) => {
         referrer.balance += bonusAmount;
         referrer.referralCount += 1
 
+        user.balance += bonusAmount;
+
         await referrer.save();
         user.hasGivenReferralBonus = true;
       }
