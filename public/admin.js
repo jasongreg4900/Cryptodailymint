@@ -156,7 +156,11 @@ btn.addEventListener("click", async () => {
 });
 
 
-const logout = () => {
-    localStorage.removeItem("adminLoggedIn")
-    window.location.href = "https://cryptodailymint.onrender.com/admin/login"
+const logoutBtn = document.getElementById("adminLogoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("adminLoggedIn");
+    window.location.href = "/admin/login";
+  });
 }
