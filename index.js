@@ -257,7 +257,7 @@ app.post("/admin/approve/:depositId", async (req, res) => {
       if (referrer) {
         const bonusAmount = dep.amount * 0.1; // 10%
         referrer.balance += bonusAmount;
-        referrer.referralCount = (referrer.referralCount || 0) + 1;
+        referrer.referralCount += 1
 
         await referrer.save();
         user.hasGivenReferralBonus = true;
