@@ -86,24 +86,32 @@ function renderDeposits(deps) {
 
   deps.forEach(d => {
     div.innerHTML += `
-      <div>
-        ${d.username} — ${d.amount} — ${d.status}
-        ${d.status === "pending"
-          ? `<button onclick="approveDeposit('${d._id}')">Approve</button>`
-          : ""}
+      <div style="margin-bottom:10px;">
+        <strong>${d.username}</strong> — ${d.amount} — ${d.status}
+        ${
+          d.status === "pending"
+            ? `<button onclick="approveDeposit('${d._id}')">Approve</button>`
+            : ""
+        }
       </div>
     `;
   });
 }
 
-async function approveDeposit(id) {
-  await fetch(`${host}/admin/approve/username`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username: id })
+
+
+async function approveDeposit(depositId) {
+  const res = await fetch(`${host}/admin/approve/${depositId}`, {
+    method: "POST"
   });
+
+  const data = await res.json();
+  alert(data.message);
+
   loadAdmin();
 }
+
+
 
 function renderMessages(msgs) {
   const div = document.getElementById("messages");
