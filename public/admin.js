@@ -100,7 +100,7 @@ async function approveDeposit(id) {
   await fetch(`${host}/admin/deposit/approve`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ depositId: id })
+    body: JSON.stringify({ username: id })
   });
   loadAdmin();
 }
@@ -123,7 +123,7 @@ async function deleteMessage(id) {
   await fetch(`${host}/admin/message/delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messageId: id })
+    body: JSON.stringify({ username: id })
   });
   loadAdmin();
 }
@@ -134,6 +134,7 @@ loadAdmin();
 const btn = document.getElementById("adminLoginBtn");
 const msg = document.getElementById("loginMsg");
 
+if (btn) {
 btn.addEventListener("click", async () => {
   const username = document.getElementById("admin-username").value.trim();
   const password = document.getElementById("admin-password").value.trim();
@@ -154,6 +155,7 @@ btn.addEventListener("click", async () => {
     msg.style.color = "red";
   }
 });
+}
 
 
 const logoutBtn = document.getElementById("adminLogoutBtn");
@@ -161,6 +163,6 @@ const logoutBtn = document.getElementById("adminLogoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("adminLoggedIn");
-    window.location.href = "/admin/login";
+    window.location.href = "https://cryptodailymint.onrender.com/admin/login";
   });
 }
