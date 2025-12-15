@@ -221,6 +221,65 @@ app.post("/admin/login", (req, res) => {
 
 
 
+app.post("/admin/approve/:depositId", async (req, res) => {
+  try {
+    const { depositId } = req.params;
+
+    const dep = await Deposit.findById(depositId);
+    if (!dep) {
+      return res.json({ success: false, message: "Deposit not found" });
+    }
+
+    if (dep.status === "approved") {
+      return res.json({ success: false, message: "Already approved" });
+    }
+
+    // Approve deposit
+    dep.status = "approved";
+    await dep.save();
+
+    const user = await collection.findOne({ username: dep.username });
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // Add deposit amount to user balance
+    user.balance += dep.amount;
+
+    // ================================
+    // ✅ REFERRAL BONUS (ONE-TIME 10%)
+    // ================================
+    if (user.referredBy && !user.hasGivenReferralBonus) {
+      const referrer = await collection.findOne({
+        referralCode: user.referredBy
+      });
+
+      if (referrer) {
+        const bonusAmount = dep.amount * 0.1; // 10%
+        referrer.balance += bonusAmount;
+        referrer.referralCount = (referrer.referralCount || 0) + 1;
+
+        await referrer.save();
+        user.hasGivenReferralBonus = true;
+      }
+    }
+
+    await user.save();
+
+    return res.json({
+      success: true,
+      message: "Deposit approved successfully"
+    });
+
+  } catch (err) {
+    console.error("Approve deposit error:", err);
+    res.json({ success: false, message: "Server error" });
+  }
+});
+
+
+
+
 function generateRecoveryCodes() {
   const codes = [];
 
@@ -465,52 +524,6 @@ function requireAdmin(req, res, next) {
   if (!req.user || req.user.role !== 'admin') return res.status(403).json({ success:false });
   next();
 }
-
-
-
-app.post("/admin/approve/:username", async (req, res) => {
-  try {
-    const dep = await Deposit.findById(req.params.username);
-    if (!dep) return res.json({ success: false, message: "Deposit not found" });
-    if (dep.status === "approved") return res.json({ success: false, message: "Already approved" });
-
-    dep.status = "approved";
-    await dep.save();
-
-    // Add deposit amount to user balance
-    const user = await collection.findById(dep.username);
-    if (!user) return res.json({ success: false, message: "User not found" });
-
-    await collection.findByIdAndUpdate(dep.username, { $inc: { balance: dep.amount }})
-
-    // ================================
-    // ✅ REFERRAL BONUS SYSTEM
-    // ================================
-    if (user.referredBy && !user.hasGivenReferralBonus) {
-      const referrer = await collection.findOne({ referralCode: user.referredBy });
-
-      if (referrer) {
-        const bonusPercent = 10; // 10%
-        const bonusAmount = (dep.amount * bonusPercent) / 100; // 10% of deposit
-
-        referrer.balance += bonusAmount;
-        referrer.referralCount = (referrer.referralCount || 0) + 1;
-
-        user.hasGivenReferralBonus = true;
-
-        await referrer.save();
-        await user.save();
-      }
-    }
-
-    return res.json({ success: true, message: "Deposit approved and balance updated" });
-
-  } catch (err) {
-    console.error("Approve deposit error:", err);
-    return res.json({ success: false, message: "Server error" });
-  }
-});
-
 
 
 
