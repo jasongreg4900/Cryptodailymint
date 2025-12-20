@@ -550,7 +550,7 @@ if (newPassword !== confirmPassowrd) {
         <td>${date}</td>
         <td>${type}</td>
         <td>${otherAddress.length > 5 ? otherAddress.slice(0, 5) + "*******" : otherAddress }</td>
-        <td>USDT ${amount}</td>
+        <td>${amount} USDT</td>
       `;
       tbody.appendChild(tr);
       }
